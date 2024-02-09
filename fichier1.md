@@ -6,3 +6,5 @@ Untracked files:
 nothing added to commit but untracked files present (use "git add" to track)
 
 modification depuis la branche master.
+
+modification pour la branche fonctionnalite 3.
