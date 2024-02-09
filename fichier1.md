@@ -4,3 +4,5 @@ Untracked files:
         reponses.md
 
 nothing added to commit but untracked files present (use "git add" to track)
+
+modification pour la branche fonctionnalite 3.
