@@ -211,7 +211,7 @@ Créer une nouvelle branche fonctionnalite2
   -> créer la branche fonctionnalite2 dans la branche fonctionnalite1
 
 Se déplacer sur la nouvelle branche fonctionnalite2
-->git chechout fonctionnalite2
+->git checkout fonctionnalite2
 
 Créer un nouveau fichier fichier5.md
 ->touch fichier5.md
@@ -252,7 +252,7 @@ Sur cette représentation, que représente les points ?
 -> les points sont les commit
 
 Comment voit-on sur quelle branche on est actuellement ?
-->on est sur la premiere ligne, la ligne bleu.
+->Le nom est en gras et il y a un °.
 
 
 
@@ -260,35 +260,90 @@ VALIDATION PROF04
 
 
 
+
 Partie 3 - Fusionner des branches
+
 Cette partie est à faire sur le même dépôt que la partie précédente. C’est la suite.
 
 On considère que la branche originale (master ou main) est la branche d’intégration, c’est-à-dire celle qui va contenir l’historique de toutes les modifications développées au fur et à mesure dans les branches annexes
 
 Se déplacer sur la branche master
+-git checkout master
 
 Noter le changement dans l’onglet Git Graph
+-> Le ° a changer de place est c'est daplacer sur master, et master est en gras.
+
 On va maintenant intégrer la branche fonctionnalite1, qui est terminée, dans la branche d’intégration (ça s’appelle une fusion, ou un merge) : fusionner avec la branche fonctionnalite1
+->git merge fonctionnalite1
 
 Noter le changement dans l’onglet Git Graph. Que signifie la mention Fast-forward indiquée par la sortie de la commande ?
+->Il y a le master et la fonctionnalite1 qui sont sur la meme branche
+
+Sortie commande:
+
+Updating a45fff6..aa5c145
+Fast-forward
+ fichier2.md | 2 ++
+ fichier3.md | 0
+ fichier4.md | 0
+ 3 files changed, 2 insertions(+)
+ create mode 100644 fichier3.md
+ create mode 100644 fichier4.md
 
 On veut maintenant fusionner fonctionnalite2 dans la branche d’intégration (master). Effectuer cette fusion.
+->git merge fonctionnalite2
 
 Noter le changement dans l’onglet Git Graph. Que signifie la mention Merge made by the … strategy indiquée par la sortie de la commande ?
+->La branche a renjoint l'autre branche principal.
+Merge made by the 'ort' strategy, est la strategie qui a était utiliser pour fusionner. Dans se cas c'est la trategie ort.
+
+Sortie commande:
+
+Merge made by the 'ort' strategy.
+ fichier5.md |   0
+ reponses.md | 176 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 176 insertions(+)
+ create mode 100644 fichier5.md
+
 
 Quelle est la différence fondamentale avec la fusion précédente ?
+->On est renter dans VI pour donner un nom de commit
 
 Créer une nouvelle branche fonctionnalite3, se déplacer dessus, et modifier le fichier fichier1.md en y ajoutant une ligne de texte. Committer : “Modification fichier1 pour fonctionnalité 3”
+->git branch fonctionnalite3
+  git checkout fonctionnalite3
+  nano fichier1.md
+  git add fichier1.md
+  git commit -m "Modification fichier1 pour fonctionnalite 3"
 
 Comment utiliser Git Graph pour qu’il nous montre les différences entre l’ancienne version de fichier1.md et la version courante que l’on vient de committer ?
+->on clic sur le commit, et après on clic sur le/les fichier qui sont a doite.
+
 Repartir sur master, et modifier fichier1.md en y ajoutant aussi une ligne (différente de celle qu’on a ajoutée sur l’autre branche) ; ajouter à l’index et commit
+->git checkout master
+  nano fichier1.md
+  git add fichier1.md
+  git commit -m "Modification fichier1 pour master"
 
 Tenter de fusionner la branche fonctionnalite3 avec master
+->git merge fonctionnalite3
 
 Que se passe-t-il et pourquoi ?
+->Il y a un conflit avec le fichier1.md
+
+sortie commande:
+
+Auto-merging fichier1.md
+CONFLICT (content): Merge conflict in fichier1.md
+Automatic merge failed; fix conflicts and then commit the result.
+
+
 Lancer un git status
+-> git status
 
 Que doit-on faire si on veut annuler la fusion en cours ? (ne pas lancer la commande)
+->git merge --abort
+
 On veut résoudre le conflit. Plusieurs possibilités :
 
 Conserver uniquement les modifications faites dans fonctionnalite3
@@ -305,8 +360,12 @@ La chaîne ========== sépare les deux versions
 Éditer le fichier pour faire en sorte d’intégrer les deux modifications ; à la fin de l’édition :
 
 Il ne doit plus y avoir de marques quelconques en dehors des ajouts fonctionnels originaux, c’est-à-dire pas de <<<<<<<<<<, ni de mentions de nom de branche, etc. : vous rendez le fichier tel qu’il doit apparaître dans le commit de fusion, avec les conflits résolus manuellement
+
 Sauvegarder
+
 Ajouter les modification à l’index et committer
+-> git add fichier1.md
+  git commit -m "modification des conflits"
 
 NB : parfois, plusieurs fichiers sont en conflit ; le processus est identique, il faut juste résoudre les conflits sur tous les fichiers
 
@@ -321,4 +380,13 @@ Attention cependant d’éviter en général de supprimer une branche qui n’a 
 Ne pas réutiliser une branche qui a déjà été intégrée pour démarrer une nouvelle piste : toujours utiliser une nouvelle branche
 Nouvelle tâche ? => nouvelle branche à partir d’un commit de la branche d’intégration (en général le plus récent)
 Tâche terminée ? => fusion dans la branche d’intégration et suppression de la branche
+
 Supprimer les trois branches fonctionnalitex (attention : on ne peut pas supprimer une branche sur laquelle on est)
+->git branch -d fonctionnalite3
+
+
+
+VALIDATION PROF05
+
+
+
